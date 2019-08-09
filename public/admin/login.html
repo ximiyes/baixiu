@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <title>Sign in &laquo; Admin</title>
+  <link rel="stylesheet" href="../assets/vendors/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+
+<body>
+  <div class="login">
+    <div class="login-wrap">
+      <img class="avatar" src="../assets/img/default.png">
+      <!-- 有错误信息时展示 -->
+
+      <div class="alert alert-danger" style="display: none">
+        <strong>错误！</strong> <span id="msg">用户名或密码错误！</span>
+      </div>
+      <div class="form-group">
+        <label for="email" class="sr-only">邮箱</label>
+        <input id="email" type="email" class="form-control" placeholder="邮箱" autofocus>
+      </div>
+      <div class="form-group">
+        <label for="password" class="sr-only">密码</label>
+        <input id="password" type="password" class="form-control" placeholder="密码">
+      </div>
+      <button class="btn btn-primary btn-block" id="login">登 录</button>
+    </div>
+  </div>
+
+  <script src="../assets/vendors/jquery/jquery.min.js"></script>
+
+  <script>
+    // 找到登录的按钮  给按钮绑定点击事件
+    $('#login').on('click', function () {
+      // 获取输入框中的内容
+      let email = $('#email').val();
+      let password = $('#password').val();
+      // 对输入框中的内容进行验证
+      let emailReg = /^([_a-z0-9-]+)(\.[_a-z0-9-]+)*@([a-z0-9-]+)(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
+      if (!emailReg.test(email)) {
+        $('.alert').fadeIn(1000).delay(1000).fadeOut(1000);
+        $('#msg').text('邮箱不符合规则');
+        return;
+      };
+
+      let pwdReg = /\w{4,18}/;
+      if (!pwdReg.test(password)) {
+        $('.alert').fadeIn(1000).delay(1000).fadeOut(1000);
+        $('#msg').text('密码不合法');
+        return;
+      };
+
+      // 发送ajax请求
+      $.ajax({
+        type: "post",
+        url: "/login",
+        data: {
+          email: email,
+          password: password
+        },
+        success: function (response) {
+          console.log('111');
+          location.href = 'index.html';
+        },
+        error: function () {
+          $('.alert').fadeIn(1000).delay(1000).fadeOut(1000);
+          $('#msg').text('邮箱地址或者密码输入错误');
+        }
+      });
+    })
+  </script>
+</body>
+
+</html>
