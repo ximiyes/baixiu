@@ -30,18 +30,19 @@
       </div> -->
       <div class="row">
         <div class="col-md-4">
-          <form>
+          <form id="categoriesForm">
             <h2>添加分类</h2>
             <div class="form-group">
               <label>名称</label>
-              <input class="form-control" type="text" placeholder="请输入分类名称">
+              <input id="categoryName" class="form-control" type="text" placeholder="请输入分类名称" name="title">
             </div>
             <div class="form-group">
               <label>图标</label>
-              <input class="form-control" type="text" placeholder="请输入分类图标类名">
+              <input id="icon" class="form-control" type="text" placeholder="请输入分类图标类名" name="className">
             </div>
             <div class="form-group">
-              <button class="btn btn-primary" type="submit">添加</button>
+              <button class="btn btn-primary" type="button" id="add">添加</button>
+              <button class="btn btn-primary" type="button" style="display: none" id="edit">修改</button>
             </div>
           </form>
         </div>
@@ -58,30 +59,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td class="text-center"><input type="checkbox"></td>
-                <td>奇趣事</td>
-                <td class="text-center">
-                  <a href="javascript:;" class="btn btn-info btn-xs">编辑</a>
-                  <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
-                </td>
-              </tr>
-              <tr>
-                <td class="text-center"><input type="checkbox"></td>
-                <td>潮科技</td>
-                <td class="text-center">
-                  <a href="javascript:;" class="btn btn-info btn-xs">编辑</a>
-                  <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
-                </td>
-              </tr>
-              <tr>
-                <td class="text-center"><input type="checkbox"></td>
-                <td>奇趣事</td>
-                <td class="text-center">
-                  <a href="javascript:;" class="btn btn-info btn-xs">编辑</a>
-                  <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
-                </td>
-              </tr>
+              
             </tbody>
           </table>
         </div>
@@ -125,8 +103,26 @@
       </li>
     </ul>
   </div>
+
+  <script type="text/html" id="categoriesTpl">
+    {{each list}}
+    <tr>
+      <td class="text-center"><input type="checkbox"></td>
+      <td>{{$value.title}}</td>
+      <td class="text-center" data-id="{{@$value._id}}">
+        <a href="javascript:;" class="btn btn-info btn-xs">编辑</a>
+        <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
+      </td>
+    </tr>
+    {{/each}}
+  </script>
+
+
+
   <script src="../assets/vendors/jquery/jquery.js"></script>
   <script src="../assets/vendors/bootstrap/js/bootstrap.js"></script>
+  <script src="../assets/vendors/art-template/template-web.js"></script>
+  <script src="../assets/js/categories.js"></script>
   <script>NProgress.done()</script>
 </body>
 </html>
