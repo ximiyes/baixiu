@@ -70,27 +70,27 @@ $('.btn-primary').on('click', function () {
 
 // 轮播图删除功能   删除按钮是动态生成的
 // 给删除按钮的父元素注册点击事件
-$('tbody').on('click','#del', function(){
-    console.log(slidesImages);
-    // return;
+$('tbody').on('click', '#del', function () {
     // 拿到点击删除的那条数据的id
-    let link  = $(this).attr('data-id');
-    // alert(link);
+    let id = $(this).attr('data-id');
+    // console.log(slidesImages);
     // return;
-    // console.log(id);
-    // 拿到id后 去数组里面删除这条id 的数据  最后渲染数据
-    let index = slidesImages.findIndex(item=>item.link==link);
-    // console.log(index);
-    slidesImages.splice(index, 1);
-    $('tbody').html(template('slideTpl', {list:slidesImages}));
+    $.ajax({
+        type: "delete",
+        url: "/slides/" + id,
+        success: function () {
+            // 拿到id后 去数组里面删除这条id 的数据  最后渲染数据
+            let index = slidesImages.findIndex(item => item._id == id);
+            // console.log(index);
+            // console.log(index);
+            slidesImages.splice(index, 1);
+            $('tbody').html(template('slideTpl', {
+                list: slidesImages
+            }));
+        }
+    });
+    
+
+    
+
 });
-
-
-
-
-
-
-
-
-
-
