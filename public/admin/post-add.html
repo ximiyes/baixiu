@@ -148,7 +148,7 @@
         <div class="form-group">
           <label for="feature">特色图像</label>
           <!-- show when image chose -->
-          <img class="help-block thumbnail" style="display: none">
+          <img class="help-block thumbnail" style="display: none" id="imgShow">
           <input id="feature" class="form-control" name="feature" type="file">
         </div>
         <!-- 隐藏域 保存图片的id -->
@@ -164,8 +164,12 @@
         </div>
         <div class="form-group">
           <label for="created">发布时间</label>
-          {{createAt.split('.')[0]}} {{'1970-01-01T00:00:00'}}
-          <input id="created" class="form-control" name="createAt" type="datetime-local" value="{{createAt.split('.')[0]?(createAt.split('.')[0]):('1970-01-01T00:00:00')}}">
+          {{'1970-01-01T00:00:00'}}
+          {{if createAt}}
+          <input id="created" class="form-control" name="createAt" type="datetime-local" value="{{createAt.split('.')[0]}}">
+          {{else}}
+          <input id="created" class="form-control" name="createAt" type="datetime-local" value="{{'1970-01-01T00:00:00'}}">
+          {{/if}}
         </div>
         <div class="form-group">
           <label for="state">状态</label>

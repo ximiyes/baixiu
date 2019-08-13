@@ -71,7 +71,8 @@ $('.btn-primary').on('click', function () {
             location.href = "/admin/posts.html";
         },
         error: function (err) {
-            console.log(err);
+            // console.log(err);
+            alert('文章添加失败');
         }
 
     });
@@ -125,10 +126,12 @@ if (id != -1) {
                     // console.log(categories);
                     // 给response添加一个属性categories 属性值是categories
                     response.categories = categories;
-                    // console.log(response);
+                    console.log(response);
                     let html = template('modifyArticle', response);
                     $('.container-fluid').html(html);
-
+                    // $('.thumbnail').show();
+                    $('#imgShow').attr('src', response.thumbnail);
+                    $('#imgShow').show();
 
 
                 }
@@ -168,12 +171,9 @@ $('.container-fluid').on('click', '#modifyButton', function () {
         url: "/posts/" + id,
         data: formData,
         success: function (response) {
-            location.href = '/admin/posts.html';
+            // 需要重定向到当前修改的那一条数据的页码
+            location.href = '/admin/posts.html?id='+id;
         }
     });
-
-
-
-
 
 });

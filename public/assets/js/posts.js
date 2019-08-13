@@ -29,9 +29,9 @@ function render(arr) {
 
 
 // 事件格式化函数
-function formateDate(date) {
+function formateDate(dates) {
     // 将日期时间字符串转化为日期对象
-    date = new Date(date);
+    date = new Date(dates);
     // padStart 不够就补位 用于补0
     return date.getFullYear() + '-' + (date.getMonth() + 1).toString().padStart(2, 0) + '-' + date.getDate().toString().padStart(2, 0);
 }
@@ -89,14 +89,14 @@ $('tbody').on('click', '#del', function () {
 $('#selectItem').on('click', function () {
     // 拿到筛选表单里面的数据
     let selectItemData = $('#filterForm').serialize();
-    console.log(selectItemData);
+    // console.log(selectItemData);
     $.ajax({
         type: "get",
         url: "/posts",
         data: selectItemData,
         success: function (response) {
             // 返回的是筛选的数据  返回的是对象  与分页的那种对象类似
-            console.log(response);
+            // console.log(response);
             // 取出
             render(response.records);
         }
@@ -113,7 +113,6 @@ function changePage(page) {
             page: page
         },
         success: function (response) {
-            // console.log(response);
             let html = template('pagenationTpl', response);
             // 将数据写入到页码中
             $('.pagination').html(html);
@@ -121,6 +120,12 @@ function changePage(page) {
             // let htmlArticle = template('articleTpl', {data:response.records});
             // $('tbody').html(htmlArticle);
             render(response.records);
+            
         }
     });
 };
+
+
+// 获取地址栏id  该id就是当前修改的那条数据的id  根据id 拿到当前的页码 渲染页面展示 
+
+
